@@ -1,0 +1,180 @@
+<div class="contacts-container">
+  <div class="container">
+    <!-- Header Section -->
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <h1 class="contacts-title">Get in Touch</h1>
+        <p class="contacts-subtitle">We'd love to hear from you. Reach out to us with any questions or feedback.</p>
+      </div>
+    </div>
+
+    <div class="row g-5">
+      <!-- Contact Information -->
+      <div class="col-lg-4">
+        <div class="contacts-info">
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="bi bi-telephone-fill"></i>
+            </div>
+            <h3>Phone</h3>
+            <p>+1 (555) 123-4567</p>
+            <small>Mon-Fri from 8am to 6pm</small>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="bi bi-envelope-fill"></i>
+            </div>
+            <h3>Email</h3>
+            <p>support&#64;yourstore.com</p>
+            <small>We'll respond within 24 hours</small>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="bi bi-geo-alt-fill"></i>
+            </div>
+            <h3>Address</h3>
+            <p>123 Commerce Street<br>New York, NY 10001</p>
+            <small>Visit our flagship store</small>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="bi bi-chat-dots-fill"></i>
+            </div>
+            <h3>Live Chat</h3>
+            <p>Available 24/7</p>
+            <small>Get instant help from our team</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="col-lg-8">
+        <div class="contacts-form">
+          <div class="form-card">
+            <h2 class="form-title">Send us a Message</h2>
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="name" class="form-label">Full Name *</label>
+                    <input type="text" class="form-control" id="name" formControlName="name"
+                      [class.is-invalid]="submitted && contactForm.get('name')?.errors"
+                      placeholder="Enter your full name">
+                    <div *ngIf="submitted && contactForm.get('name')?.errors" class="invalid-feedback">
+                      <div *ngIf="contactForm.get('name')?.errors?.['required']">Name is required</div>
+                      <div *ngIf="contactForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="email" class="form-label">Email Address *</label>
+                    <input type="email" class="form-control" id="email" formControlName="email"
+                      [class.is-invalid]="submitted && contactForm.get('email')?.errors" placeholder="Enter your email">
+                    <div *ngIf="submitted && contactForm.get('email')?.errors" class="invalid-feedback">
+                      <div *ngIf="contactForm.get('email')?.errors?.['required']">Email is required</div>
+                      <div *ngIf="contactForm.get('email')?.errors?.['email']">Please enter a valid email</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="subject" class="form-label">Subject *</label>
+                    <input type="text" class="form-control" id="subject" formControlName="subject"
+                      [class.is-invalid]="submitted && contactForm.get('subject')?.errors"
+                      placeholder="What is this regarding?">
+                    <div *ngIf="submitted && contactForm.get('subject')?.errors" class="invalid-feedback">
+                      <div *ngIf="contactForm.get('subject')?.errors?.['required']">Subject is required</div>
+                      <div *ngIf="contactForm.get('subject')?.errors?.['minlength']">Subject must be at least 5
+                        characters</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="message" class="form-label">Message *</label>
+                    <textarea class="form-control" id="message" rows="5" formControlName="message"
+                      [class.is-invalid]="submitted && contactForm.get('message')?.errors"
+                      placeholder="Tell us how we can help you..."></textarea>
+                    <div *ngIf="submitted && contactForm.get('message')?.errors" class="invalid-feedback">
+                      <div *ngIf="contactForm.get('message')?.errors?.['required']">Message is required</div>
+                      <div *ngIf="contactForm.get('message')?.errors?.['minlength']">Message must be at least 10
+                        characters</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-send me-2"></i>Send Message
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="faq-section">
+          <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+          <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                  How long does shipping take?
+                </button>
+              </h3>
+              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Standard shipping takes 3-5 business days. Express shipping is available for delivery within 1-2
+                  business days.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#faq2">
+                  What is your return policy?
+                </button>
+              </h3>
+              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  We offer a 30-day return policy for all unused items in their original packaging. Returns are free for
+                  all customers.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#faq3">
+                  Do you offer international shipping?
+                </button>
+              </h3>
+              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Yes, we ship to over 50 countries worldwide. International shipping rates and delivery times vary by
+                  location.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

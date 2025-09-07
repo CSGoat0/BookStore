@@ -1,0 +1,59 @@
+<!-- sign-up.component.html (updated) -->
+<div class="sign-up-container">
+  <div class="sign-up-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Sign up to get started</p>
+
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="sign-up-form">
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" formControlName="name" placeholder="Enter your full name"
+          [class.invalid]="submitted && f['name'].invalid" />
+        <div *ngIf="submitted && f['name'].invalid" class="error-message">
+          <span *ngIf="f['name'].errors?.['required']">Name is required</span>
+          <span *ngIf="f['name'].errors?.['minlength']">
+            Name must be at least 2 characters
+          </span>
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email"
+          [class.invalid]="submitted && f['email'].invalid" />
+        <div *ngIf="submitted && f['email'].invalid" class="error-message">
+          <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+          <span *ngIf="f['email'].errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" placeholder="Create a password"
+          [class.invalid]="submitted && f['password'].invalid" />
+        <div *ngIf="submitted && f['password'].invalid" class="error-message">
+          <span *ngIf="f['password'].errors?.['required']">Password is required</span>
+          <span *ngIf="f['password'].errors?.['minlength']">
+            Password must be at least 6 characters
+          </span>
+        </div>
+      </div>
+
+      <button type="submit" class="sign-up-button" [disabled]="isLoading">
+        {{ isLoading ? 'Creating Account...' : 'Sign Up' }}
+      </button>
+    </form>
+
+    <div class="login-link">
+      <p>Already have an account? <a routerLink="/login">Sign in</a></p>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <app-modal *ngIf="showModal" [title]="modalTitle" [message]="modalMessage" [type]="modalType"
+    (close)="handleModalClose()">
+  </app-modal>
+</div>

@@ -1,0 +1,46 @@
+<!-- login.component.html -->
+<div class="login-container">
+  <div class="login-card">
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Sign in to your account</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email"
+          [class.invalid]="submitted && f['email'].invalid" />
+        <div *ngIf="submitted && f['email'].invalid" class="error-message">
+          <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+          <span *ngIf="f['email'].errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" placeholder="Enter your password"
+          [class.invalid]="submitted && f['password'].invalid" />
+        <div *ngIf="submitted && f['password'].invalid" class="error-message">
+          <span *ngIf="f['password'].errors?.['required']">Password is required</span>
+        </div>
+        <div class="forgot-password">
+          <a routerLink="/forgot-password">Forgot password?</a>
+        </div>
+      </div>
+
+      <button type="submit" class="login-button" [disabled]="isLoading">
+        {{ isLoading ? 'Signing In...' : 'Sign In' }}
+      </button>
+    </form>
+
+    <div class="signup-link">
+      <p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <app-modal *ngIf="showModal" [title]="modalTitle" [message]="modalMessage" [type]="modalType"
+    (close)="handleModalClose()">
+  </app-modal>
+</div>

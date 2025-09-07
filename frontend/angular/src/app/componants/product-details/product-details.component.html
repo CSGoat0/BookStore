@@ -1,0 +1,115 @@
+<div class="product-details-container">
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Loading product details...</p>
+  </div>
+
+  <div class="error-message" *ngIf="error && !loading">
+    <h2>Oops! Something went wrong</h2>
+    <p>{{ error }}</p>
+    <button class="btn-primary" (click)="loadProduct()">Try Again</button>
+    <input class="btn btn-primary" routerLink="/products" value="Back to Home">
+  </div>
+
+  <div class="product-details" *ngIf="product && !loading">
+    <div class="product-header">
+      <button class="btn btn-danger" routerLink="/products">
+        ← Back to Products
+      </button>
+      <span class="stock-badge" [class.low-stock]="product.stock < 10" [class.out-of-stock]="product.stock === 0">
+        {{ product.stock === 0 ? 'Out of Stock' : (product.stock < 10 ? 'Low Stock' : 'In Stock' ) }} </span>
+    </div>
+
+    <div class="product-content">
+      <div class="product-image-section">
+        <img [src]="product.coverImage || 'assets/images/book-placeholder.jpg'" [alt]="product.title"
+          class="product-image" (error)="handleImageError($event)">
+        <div class="image-placeholder" *ngIf="!product.coverImage">
+          <i class="fas fa-book"></i>
+        </div>
+      </div>
+
+      <div class="product-info-section">
+        <h1 class="product-title">{{ product.title }}</h1>
+        <p class="product-author">by {{ product.author }}</p>
+
+        <div class="price-section">
+          <div class="current-price">${{ product.price | number:'1.2-2' }}</div>
+          <div class="original-price" *ngIf="product.originalPrice && product.originalPrice > product.price">
+            ${{ product.originalPrice | number:'1.2-2' }}
+          </div>
+          <div class="discount-badge" *ngIf="getDiscount()">
+            {{ getDiscount() }}% OFF
+          </div>
+        </div>
+
+        <div class="product-meta">
+          <div class="meta-item">
+            <strong>ISBN:</strong> {{ product.isbn }}
+          </div>
+          <div class="meta-item">
+            <strong>SKU:</strong> {{ product.sku }}
+          </div>
+          <div class="meta-item">
+            <strong>Genre:</strong> {{ product.genre }}
+          </div>
+          <div class="meta-item" *ngIf="product.categories && product.categories.length">
+            <strong>Categories:</strong> {{ product.categories.join(', ') }}
+          </div>
+          <div class="meta-item" *ngIf="product.publisher">
+            <strong>Publisher:</strong> {{ product.publisher }}
+          </div>
+          <div class="meta-item" *ngIf="product.publicationYear">
+            <strong>Publication Year:</strong> {{ product.publicationYear }}
+          </div>
+          <div class="meta-item" *ngIf="product.format">
+            <strong>Format:</strong> {{ product.format | titlecase }}
+          </div>
+          <div class="meta-item" *ngIf="product.pages">
+            <strong>Pages:</strong> {{ product.pages }}
+          </div>
+          <div class="meta-item" *ngIf="product.language">
+            <strong>Language:</strong> {{ product.language }}
+          </div>
+          <div class="meta-item" *ngIf="product.dimensions">
+            <strong>Dimensions:</strong> {{ formatDimensions() }}
+          </div>
+          <div class="meta-item" *ngIf="product.weight">
+            <strong>Weight:</strong> {{ product.weight }}g
+          </div>
+        </div>
+
+        <div class="description-section" *ngIf="product.description">
+          <h3>Description</h3>
+          <p class="product-description">{{ product.description }}</p>
+        </div>
+
+        <div class="action-section" *ngIf="product.stock > 0">
+          <div class="quantity-selector">
+            <label for="quantity">Quantity:</label>
+            <div class="quantity-controls">
+              <button (click)="decreaseQuantity()" [disabled]="quantity <= 1">-</button>
+              <input type="number" id="quantity" [(ngModel)]="quantity" min="1" [max]="product.stock"
+                (input)="validateQuantity()">
+              <button (click)="increaseQuantity()" [disabled]="quantity >= product.stock">+</button>
+            </div>
+            <span class="stock-info">Available: {{ product.stock }}</span>
+          </div>
+
+          <button class="add-to-cart-btn" (click)="onAddToCart()" [disabled]="isAddingToCart">
+            {{ isAddingToCart ? 'Adding...' : 'Add to Cart' }}
+          </button>
+        </div>
+
+        <div class="out-of-stock-message" *ngIf="product.stock === 0">
+          <p>This product is currently out of stock.</p>
+          <button class="notify-btn">Notify Me When Available</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for stock limit warning -->
+<app-modal *ngIf="showModal" [title]="modalTitle" [message]="modalMessage" [type]="modalType" (close)="closeModal()">
+</app-modal>

@@ -1,0 +1,148 @@
+<!-- components/book-management/book-management.component.html -->
+<div class="book-management-container">
+  <h2>Book Management</h2>
+
+  <!-- Search and Filter Section -->
+  <div class="filters-section">
+    <div class="search-box">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Search books..." (keyup.enter)="searchBooks()">
+      <button (click)="searchBooks()">Search</button>
+    </div>
+
+    <div class="filter-controls">
+      <select [(ngModel)]="filter.genre" (change)="loadBooks()">
+        <option value="">All Genres</option>
+        <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+      </select>
+
+      <select [(ngModel)]="filter.isActive" (change)="loadBooks()">
+        <option [value]="undefined">All Status</option>
+        <option [value]="true">Active</option>
+        <option [value]="false">Inactive</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Add New Book Form -->
+  <div class="add-book-section">
+    <h3>Add New Book</h3>
+    <div class="form-grid">
+      <input [(ngModel)]="newBook.title" placeholder="Title" required>
+      <input [(ngModel)]="newBook.author" placeholder="Author" required>
+      <input [(ngModel)]="newBook.isbn" placeholder="ISBN" required>
+      <input [(ngModel)]="newBook.sku" placeholder="SKU" required>
+      <input type="number" [(ngModel)]="newBook.price" placeholder="Price" min="0" step="0.01" required>
+      <input type="number" [(ngModel)]="newBook.stock" placeholder="Stock" min="0" required>
+      <select [(ngModel)]="newBook.genre" required>
+        <option value="">Select Genre</option>
+        <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+      </select>
+      <select [(ngModel)]="newBook.format" required>
+        <option *ngFor="let format of formats" [value]="format">{{ format }}</option>
+      </select>
+      <textarea [(ngModel)]="newBook.description" placeholder="Description"></textarea>
+    </div>
+    <button (click)="createBook()" [disabled]="isLoading">
+      {{ isLoading ? 'Adding...' : 'Add Book' }}
+    </button>
+  </div>
+
+  <!-- Books Table -->
+  <div class="books-table-section">
+    <h3>Books List</h3>
+
+    <div class="table-responsive">
+      <table class="books-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Genre</th>
+            <th>Format</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books; trackBy: trackByBookId">
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.isbn }}</td>
+            <td>${{ book.price.toFixed(2) }}</td>
+            <td [class.low-stock]="book.stock < 10" [class.out-of-stock]="book.stock === 0">
+              {{ book.stock }}
+            </td>
+            <td>{{ book.genre }}</td>
+            <td>{{ book.format }}</td>
+            <td>
+              <span [class.active]="book.isActive" [class.inactive]="!book.isActive">
+                {{ book.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td class="actions">
+              <button (click)="editBook(book)" class="btn-edit">Edit</button>
+              <button (click)="deleteBook(book)" class="btn-delete">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading">Loading books...</div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && books.length === 0" class="empty-state">
+      No books found.
+    </div>
+
+    <!-- Pagination -->
+    <div *ngIf="totalPages > 1" class="pagination">
+      <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">
+        Previous
+      </button>
+
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+      <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages">
+        Next
+      </button>
+    </div>
+  </div>
+
+  <!-- Edit Book Modal -->
+  <div *ngIf="isEditing && selectedBook" class="edit-modal">
+    <div class="modal-content">
+      <h3>Edit Book</h3>
+      <div class="form-grid">
+        <input [(ngModel)]="selectedBook.title" placeholder="Title">
+        <input [(ngModel)]="selectedBook.author" placeholder="Author">
+        <input [(ngModel)]="selectedBook.price" type="number" placeholder="Price" min="0" step="0.01">
+        <input [(ngModel)]="selectedBook.stock" type="number" placeholder="Stock" min="0">
+        <select [(ngModel)]="selectedBook.genre">
+          <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+        </select>
+        <select [(ngModel)]="selectedBook.format">
+          <option *ngFor="let format of formats" [value]="format">{{ format }}</option>
+        </select>
+        <label>
+          <input type="checkbox" [(ngModel)]="selectedBook.isActive">
+          Active
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button (click)="updateBook()" [disabled]="isLoading">
+          {{ isLoading ? 'Updating...' : 'Update' }}
+        </button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Modal -->
+  <app-modal *ngIf="showModal" [title]="modalTitle" [message]="modalMessage" [type]="modalType" (close)="closeModal()">
+  </app-modal>
+</div>

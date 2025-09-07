@@ -1,0 +1,17 @@
+<!-- modal.component.html -->
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3 class="modal-title">{{ title }}</h3>
+      <button class="modal-close" (click)="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div *ngIf="type === 'success'" class="success-icon">✓</div>
+      <div *ngIf="type === 'error'" class="error-icon">✗</div>
+      <p>{{ message }}</p>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-button" (click)="closeModal()">OK</button>
+    </div>
+  </div>
+</div>

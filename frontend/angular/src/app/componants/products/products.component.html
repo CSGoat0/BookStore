@@ -1,0 +1,163 @@
+<div class="container-fluid p-0">
+  <div class="row g-0">
+    <!-- Left Sidebar -->
+    <div class="col-md-3 bg-light p-3 rounded" style="min-height: 100vh;">
+      <!-- Navigation Links -->
+      <!-- <div class="mb-4">
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <a class="nav-link text-dark fw-bold" routerLinkActive="active" routerLink="link1">
+              <i class="fa fa-home me-2"></i>Link 1
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link text-dark fw-bold" routerLinkActive="active" routerLink="link2">
+              <i class="fa fa-book me-2"></i>Link 2
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link text-dark fw-bold" routerLinkActive="active" routerLink="link3">
+              <i class="fa fa-tags me-2"></i>Link 3
+            </a>
+          </li>
+        </ul>
+      </div> -->
+
+      <!-- Search Box -->
+      <section class="panel mb-4">
+        <div class="panel-body">
+          <input type="text" placeholder="Keyword Search" class="form-control" id="search" (input)="searchFilter()" />
+        </div>
+      </section>
+
+      <!-- Category Filter -->
+      <section class="panel mb-4">
+        <header class="panel-heading text-white p-2 rounded">
+          Filters
+        </header>
+        <div class="panel-body">
+          <ul class="nav prod-cat flex-column">
+            <!-- Fiction Category with Subcategories -->
+            <li class="mb-2">
+              <a href="javascript:void(0)" class="text-dark fw-bold category-header"
+                (click)="toggleCategory('fiction')">
+                <i class="fa" [class.fa-angle-right]="!isCategoryOpen('fiction')"
+                  [class.fa-angle-down]="isCategoryOpen('fiction')"></i> Fiction
+              </a>
+              <ul class="nav flex-column ms-4 subcategory-list" [class.d-block]="isCategoryOpen('fiction')">
+                <li><a href="#">Mystery</a></li>
+                <li><a href="#">Science Fiction</a></li>
+                <li><a href="#">Romance</a></li>
+              </ul>
+            </li>
+
+            <!-- Non-Fiction Category -->
+            <li class="mb-2">
+              <a href="javascript:void(0)" class="text-dark fw-bold category-header"
+                (click)="toggleCategory('nonfiction')">
+                <i class="fa" [class.fa-angle-right]="!isCategoryOpen('nonfiction')"
+                  [class.fa-angle-down]="isCategoryOpen('nonfiction')"></i> Non-Fiction
+              </a>
+              <ul class="nav flex-column ms-4 subcategory-list" [class.d-block]="isCategoryOpen('nonfiction')">
+                <li><a href="#">History</a></li>
+                <li><a href="#">Science</a></li>
+                <li><a href="#">Self-Help</a></li>
+              </ul>
+            </li>
+
+            <!-- Biography Category -->
+            <li class="mb-2">
+              <a href="javascript:void(0)" class="text-dark fw-bold category-header"
+                (click)="toggleCategory('biography')">
+                <i class="fa" [class.fa-angle-right]="!isCategoryOpen('biography')"
+                  [class.fa-angle-down]="isCategoryOpen('biography')"></i> Biography
+              </a>
+              <ul class="nav flex-column ms-4 subcategory-list" [class.d-block]="isCategoryOpen('biography')">
+                <li><a href="#">Autobiographies</a></li>
+                <li><a href="#">Memoirs</a></li>
+                <li><a href="#">Historical Figures</a></li>
+              </ul>
+            </li>
+
+            <!-- Children's Books Category -->
+            <li class="mb-2">
+              <a href="javascript:void(0)" class="text-dark fw-bold category-header"
+                (click)="toggleCategory('children')">
+                <i class="fa" [class.fa-angle-right]="!isCategoryOpen('children')"
+                  [class.fa-angle-down]="isCategoryOpen('children')"></i> Children's Books
+              </a>
+              <ul class="nav flex-column ms-4 subcategory-list" [class.d-block]="isCategoryOpen('children')">
+                <li><a href="#">Picture Books</a></li>
+                <li><a href="#">Chapter Books</a></li>
+                <li><a href="#">Young Adult</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Price Range -->
+      <section class="panel mb-4">
+        <header class="panel-heading text-white p-2 rounded">
+          Price Range
+        </header>
+        <div class="panel-body">
+          <div class="range-slider mt-3">
+            <input type="range" class="form-range" min="0" max="100" id="customRange1">
+            <div class="d-flex justify-content-between">
+              <span>$0</span>
+              <span>$100</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- filter section -->
+      <section class="panel mb-4">
+        <header class="panel-heading text-white p-2 rounded">
+          Details
+        </header>
+        <div class="panel-body">
+          <div class="form-group mb-3">
+            <label class="form-label">Format</label>
+            <select class="form-select">
+              <option>Paperback</option>
+              <option>Hardcover</option>
+              <option>eBook</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label">Availability</label>
+            <select class="form-select">
+              <option>In Stock</option>
+              <option>Pre-Order</option>
+              <option>Out of Stock</option>
+            </select>
+          </div>
+          <button class="btn btn-dark w-100" style="background: linear-gradient(
+            135deg,
+            #2c3e50 0%,
+            #34495e 100%) !important">Apply Filters</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Right Content Area -->
+    <div class="col-md-9 p-4">
+      <div class="container p-3 rounded" style="background: linear-gradient(
+        135deg,
+        #2c3e50 0%,
+        #34495e 100%) !important">
+        <div class="row">
+          <!-- Products Grid -->
+          @for (product of filteredProducts; track product._id) {
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="product-card-wrapper">
+              <app-product-card [product]="product"></app-product-card>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,249 @@
+<!-- Hero Section - Keep as is -->
+<section class="hero-section py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-3 text-dark">Discover Amazing Products</h1>
+        <p class="lead mb-4 text-muted">Explore our curated collection of premium items designed to enhance your
+          lifestyle.</p>
+        <div class="d-flex gap-3">
+          <a routerLink="/products" class="btn btn-primary btn-lg px-4">Shop Now</a>
+          <a routerLink="/categories" class="btn btn-outline-dark btn-lg px-4">Explore Categories</a>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <div class="hero-visual">
+          <div class="floating-card card-1 btn-primary">
+            <i class="bi bi-star-fill text-warning"></i>
+          </div>
+          <div class="floating-card card-2 btn-primary">
+            <i class="bi bi-lightning-fill text-white"></i>
+          </div>
+          <div class="floating-card card-3 btn-primary">
+            <i class="bi bi-heart-fill text-danger"></i>
+          </div>
+          <div class="main-hero-icon">
+            <i class="bi bi-bag-heart-fill"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Grid -->
+<section class="py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-subtitle">Carefully selected items just for you</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div *ngFor="let product of featuredProducts" class="col-md-6 col-lg-3" (click)="redirectToProduct(product._id)">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a routerLink="/products" class="btn btn-outline-primary btn-lg">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-5 rounded" style="background: linear-gradient(
+  135deg,
+  #2c3e50 0%,
+  #34495e 100%) !important;">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title text-light">Shop by Category</h2>
+        <p class="section-subtitle text-light">Find exactly what you're looking for</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="category-card text-center p-4 rounded h-100">
+              <div class="category-icon mb-3">
+                <i class="bi bi-cup-hot-fill"></i>
+              </div>
+              <h3 class="text-light">Hot Items</h3>
+              <p class="text-light">Discover our trending collection</p>
+              <a href="#" class="btn btn-outline-light mt-2">Explore</a>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="category-card text-center p-4 rounded h-100">
+              <div class="category-icon mb-3">
+                <i class="bi bi-star-fill"></i>
+              </div>
+              <h3 class="text-light">Premium</h3>
+              <p class="text-light">Luxury items for special occasions</p>
+              <a href="#" class="btn btn-outline-light mt-2">Explore</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="category-card text-center p-4 rounded h-100">
+              <div class="category-icon mb-3">
+                <i class="bi bi-lightning-fill"></i>
+              </div>
+              <h3 class="text-light">New Arrivals</h3>
+              <p class="text-light">Fresh products just for you</p>
+              <a href="#" class="btn btn-outline-light mt-2">Explore</a>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="category-card text-center p-4 rounded h-100">
+              <div class="category-icon mb-3">
+                <i class="bi bi-award-fill"></i>
+              </div>
+              <h3 class="text-light">Best Sellers</h3>
+              <p class="text-light">Customer favorites</p>
+              <a href="#" class="btn btn-outline-light mt-2">Explore</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Grid -->
+<section class="py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-subtitle">Carefully selected items just for you</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div *ngFor="let product of bottomProducts" class="col-md-6 col-lg-3" (click)="redirectToProduct(product._id)">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a routerLink="/products" class="btn btn-outline-primary btn-lg">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section - Same layout as Categories -->
+<section class="py-5 rounded" style="background: linear-gradient(
+  135deg,
+  #2c3e50 0%,
+  #34495e 100%) !important;">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title text-light">What Our Customers Say</h2>
+        <p class="section-subtitle text-light">Don't just take our word for it</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="testimonial-card text-center p-4 rounded h-100">
+              <div class="d-flex mb-3 justify-content-center">
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+              </div>
+              <p class="text-light">"The quality of these products is exceptional. I've been a customer for years!"</p>
+              <div class="d-flex align-items-center mt-3 justify-content-center">
+                <div class="customer-avatar me-3">
+                  <i class="bi bi-person-circle"></i>
+                </div>
+                <div>
+                  <h6 class="text-light mb-0">Sarah Johnson</h6>
+                  <small class="text-light">Verified Customer</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="testimonial-card text-center p-4 rounded h-100">
+              <div class="d-flex mb-3 justify-content-center">
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+              </div>
+              <p class="text-light">"Fast shipping and amazing customer service. The products exceeded my expectations!"
+              </p>
+              <div class="d-flex align-items-center mt-3 justify-content-center">
+                <div class="customer-avatar me-3">
+                  <i class="bi bi-person-circle"></i>
+                </div>
+                <div>
+                  <h6 class="text-light mb-0">Michael Chen</h6>
+                  <small class="text-light">Verified Customer</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="testimonial-card text-center p-4 rounded h-100">
+              <div class="d-flex mb-3 justify-content-center">
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-half text-warning"></i>
+              </div>
+              <p class="text-light">"I love the variety of products available. Always something new and exciting to
+                discover!"</p>
+              <div class="d-flex align-items-center mt-3 justify-content-center">
+                <div class="customer-avatar me-3">
+                  <i class="bi bi-person-circle"></i>
+                </div>
+                <div>
+                  <h6 class="text-light mb-0">Emma Rodriguez</h6>
+                  <small class="text-light">Verified Customer</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="testimonial-card text-center p-4 rounded h-100">
+              <div class="d-flex mb-3 justify-content-center">
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning me-1"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+              </div>
+              <p class="text-light">"The customer support team was incredibly helpful when I had questions about a
+                product."</p>
+              <div class="d-flex align-items-center mt-3 justify-content-center">
+                <div class="customer-avatar me-3">
+                  <i class="bi bi-person-circle"></i>
+                </div>
+                <div>
+                  <h6 class="text-light mb-0">James Wilson</h6>
+                  <small class="text-light">Verified Customer</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

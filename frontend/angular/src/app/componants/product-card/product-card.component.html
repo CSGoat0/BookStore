@@ -1,0 +1,42 @@
+<!-- product-card.component.html -->
+<div class="product-card" (click)="onCardClick($event)" *ngIf="product">
+  <div class="image-container">
+    <img [src]="product.coverImage || 'assets/images/book-placeholder.jpg'" [alt]="product.title" class="product-image">
+  </div>
+
+  <div class="format-badge" *ngIf="product.format">
+    {{ product.format }}
+  </div>
+
+  <div class="product-info">
+    <h3 class="product-title">{{ product.title }}</h3>
+    <p class="product-author">by {{ product.author }}</p>
+
+    <div class="price-section">
+      <span class="current-price">${{ product.price.toFixed(2) }}</span>
+      <span class="original-price" *ngIf="product.originalPrice && product.originalPrice > product.price">
+        ${{ product.originalPrice.toFixed(2) }}
+      </span>
+      <span class="discount" *ngIf="getDiscount()">
+        {{ getDiscount() }}% off
+      </span>
+    </div>
+
+    <div class="stock-info" [class.low-stock]="product.stock > 0 && product.stock < 10"
+      [class.out-of-stock]="product.stock === 0">
+      {{ product.stock > 0 ? (product.stock < 10 ? 'Only ' + product.stock + ' left!' : 'In stock' ) : 'Out of stock' }}
+        </div>
+
+        <button class="add-to-cart-btn" (click)="onAddToCart($event)"
+          [disabled]="product.stock === 0 || isAddingToCart">
+          <span *ngIf="!isAddingToCart">
+            {{ product.stock > 0 ? 'Add to Cart' : 'Out of Stock' }}
+          </span>
+          <span *ngIf="isAddingToCart">Adding...</span>
+        </button>
+    </div>
+  </div>
+
+  <!-- Modal for stock limit warning -->
+  <app-modal *ngIf="showModal" [title]="modalTitle" [message]="modalMessage" [type]="modalType" (close)="closeModal()">
+  </app-modal>

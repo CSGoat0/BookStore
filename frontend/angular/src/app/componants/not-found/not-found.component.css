@@ -1,0 +1,276 @@
+.not-found-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.not-found-graphic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.error-number {
+  font-size: 8rem;
+  font-weight: 900;
+  color: #0d6efd;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.error-illustration {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 2rem;
+}
+
+.planet {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.planet::before {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  top: 20px;
+  left: 20px;
+}
+
+.planet::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  top: 40px;
+  right: 20px;
+}
+
+.astronaut {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  animation: float-astronaut 4s ease-in-out infinite;
+}
+
+@keyframes float-astronaut {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+.astronaut-body {
+  width: 40px;
+  height: 50px;
+  background: white;
+  border-radius: 20px 20px 5px 5px;
+  position: relative;
+}
+
+.astronaut-body::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  background: #0d6efd;
+  border-radius: 5px;
+  bottom: -5px;
+  left: 10px;
+}
+
+.astronaut-helmet {
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: -20px;
+  left: 5px;
+  box-shadow: 0 0 0 3px #0d6efd;
+}
+
+.astronaut-helmet::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 5px;
+  background: #0d6efd;
+  border-radius: 2px;
+  top: 12px;
+  left: 7px;
+}
+
+.not-found-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.not-found-text {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.not-found-actions {
+  margin-bottom: 2rem;
+}
+
+.not-found-search {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .error-number {
+    font-size: 5rem;
+  }
+
+  .error-illustration {
+    width: 100px;
+    height: 100px;
+    margin: 0 1rem;
+  }
+
+  .planet {
+    width: 70px;
+    height: 70px;
+  }
+
+  .not-found-title {
+    font-size: 2rem;
+  }
+
+  .not-found-text {
+    font-size: 1rem;
+  }
+
+  .not-found-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .not-found-actions .btn {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .error-number {
+    font-size: 4rem;
+  }
+
+  .error-illustration {
+    width: 80px;
+    height: 80px;
+    margin: 0 0.5rem;
+  }
+
+  .planet {
+    width: 60px;
+    height: 60px;
+  }
+
+  .astronaut-body {
+    width: 30px;
+    height: 40px;
+  }
+
+  .astronaut-helmet {
+    width: 25px;
+    height: 25px;
+    top: -15px;
+  }
+
+  .not-found-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* Button styles to match your theme */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background: #0b5ed7;
+  border-color: #0a58ca;
+  transform: translateY(-2px);
+}
+
+.btn-outline-dark {
+  color: #2c3e50;
+  border-color: #2c3e50;
+}
+
+.btn-outline-dark:hover {
+  background: #2c3e50;
+  border-color: #2c3e50;
+  transform: translateY(-2px);
+  color: white;
+}
+
+/* Form styles */
+.form-control {
+  border-radius: 8px;
+  border: 2px solid #dee2e6;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
